@@ -32,14 +32,30 @@ io.on('connection', (socket) => {
       noise: Math.floor(Math.random() * 80 + 20),         // 20 - 100 dB
       timestamp: new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
-    // envoyer en temps réel
+ // ENVOI DES DONNÉES EN TEMPS RÉEL
   socket.emit('sensorData', data);
 
-  // enregistrer en base
-  SensorData.insert(data, (err, result) => {
-    if (err) console.error("Erreur sauvegarde capteur :", err);
-    else console.log("✅ Donnée capteur enregistrée.");
+  // SAUVEGARDE EN BASE
+  SensorData.insert(data, (err) => {
+    if (err) console.error("Erreur insertion :", err);
+    else console.log("✅ Donnée enregistrée.");
   });
+
+  // ANALYSE ET ENVOI D’ALERTES
+  if (data.airQuality > 80) {
+    socket.emit('alert', {
+      type: 'pollution',
+      message: `🚨 Qualité de l'air très mauvaise : ${data.airQuality}/100`
+    });
+  }
+
+  if (data.noise > 90) {
+    socket.emit('alert', {
+      type: 'noise',
+      message: `🔊 Niveau sonore élevé : ${data.noise} dB`
+    });
+  }
+
 }, 5000);
 
   socket.on('disconnect', () => {
