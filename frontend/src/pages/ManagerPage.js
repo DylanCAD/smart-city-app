@@ -1,6 +1,7 @@
 import React from 'react';
 import SensorDisplay from '../components/SensorDisplay';
 import ReportChart from '../components/ReportChart';
+import SensorManager from '../components/SensorManager';
 
 function ManagerPage() {
   return (
@@ -9,7 +10,8 @@ function ManagerPage() {
       <SensorDisplay />
       <hr />
       <ReportChart />
-      {/* On ajoutera la gestion des capteurs plus tard */}
+      <hr />
+      <SensorManager />
     </div>
   );
 }
