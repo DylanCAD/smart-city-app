@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function LoginPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -15,9 +18,18 @@ function Login() {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:3001/api/login', formData);
-      const token = res.data.token;
+      const { token } = res.data;
       localStorage.setItem('token', token);
-      alert("Connexion réussie !");
+
+      // Décoder le token pour obtenir le rôle
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const role = payload.role;
+
+      if (role === 'citizen') navigate('/citizen');
+      else if (role === 'manager') navigate('/manager');
+      else if (role === 'researcher') navigate('/researcher');
+      else navigate('/');
+
     } catch (err) {
       alert("Erreur : " + err.response.data);
     }
@@ -35,4 +47,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

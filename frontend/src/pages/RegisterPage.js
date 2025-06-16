@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Register() {
+function RegisterPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -16,8 +19,9 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/api/register', formData);
+      await axios.post('http://localhost:3001/api/register', formData);
       alert("Inscription réussie !");
+      navigate('/login');
     } catch (err) {
       alert("Erreur : " + err.response.data);
     }
@@ -41,4 +45,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;
