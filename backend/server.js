@@ -72,3 +72,6 @@ app.use('/api/sensor', sensorRoutes);
 http.listen(PORT, () => {
   console.log(`Serveur + WebSocket sur http://localhost:${PORT}`);
 });
+
+const profileRoutes = require('./routes/profileRoutes');
+app.use('/api/profile', profileRoutes);

@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { getUserRole } from './utils/auth';
 import Navbar from './components/Navbar';
+import ProfilePage from './pages/ProfilePage';
 
 
 function App() {
@@ -39,6 +40,11 @@ function App() {
             <Route path="/researcher" element={
               <ProtectedRoute allowedRoles={['researcher']}>
                 <ResearcherPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute allowedRoles={['citizen', 'manager', 'researcher']}>
+                <ProfilePage />
               </ProtectedRoute>
             } />
           </Routes>
