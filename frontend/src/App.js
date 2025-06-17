@@ -15,14 +15,15 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { getUserRole } from './utils/auth';
 import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
+import Footer from './components/Footer';
 
 
 function App() {
   return (
     <Router>
-      <div>
-        <Navbar /> {/* persistante sur toutes les pages */}
-        <div style={{ padding: '20px' }}>
+      <div style={styles.appContainer}>
+        <Navbar />
+        <div style={styles.mainContent}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
@@ -49,10 +50,22 @@ function App() {
             } />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
 }
 
+const styles = {
+  appContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
+  },
+  mainContent: {
+    flex: 1,
+    padding: '20px'
+  }
+};
 
 export default App;
