@@ -31,6 +31,7 @@ function Navbar() {
           <Link to="/register" style={styles.link}>S'inscrire</Link>
         </>}
         {role && <Link to="/profile" style={styles.link}>Mon profil</Link>}
+        {role === 'admin' && <Link to="/admin" style={styles.link}>Admin</Link>}
       </div>
     </nav>
   );

@@ -16,6 +16,7 @@ import { getUserRole } from './utils/auth';
 import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 import Footer from './components/Footer';
+import AdminPage from './pages/AdminPage';
 
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
             <Route path="/profile" element={
               <ProtectedRoute allowedRoles={['citizen', 'manager', 'researcher']}>
                 <ProfilePage />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminPage />
               </ProtectedRoute>
             } />
           </Routes>
