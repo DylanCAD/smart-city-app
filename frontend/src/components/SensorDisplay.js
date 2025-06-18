@@ -49,6 +49,9 @@ function SensorDisplay() {
 
       {data ? (
         <div>
+          {data.sensor_name && data.zone && (
+            <p><strong>🛰️ {data.sensor_name}</strong> – 📍 {data.zone}</p>
+          )}
           <p><strong>Température :</strong> {data.temperature} °C</p>
           <p><strong>Qualité de l'air :</strong> {data.airQuality} / 100</p>
           <p><strong>Niveau sonore :</strong> {data.noise} dB</p>

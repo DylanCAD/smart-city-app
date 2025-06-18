@@ -25,12 +25,18 @@ io.on('connection', (socket) => {
   console.log('🟢 Client connecté au WebSocket');
 
   // envoyer les données simulées toutes les 5s
+  const zones = ['Centre-ville', 'Quartier Sud', 'Zone Industrielle', 'Gare', 'Parc Ouest'];
+  const capteurs = ['Capteur A1', 'Capteur B2', 'Capteur C3', 'Capteur D4', 'Capteur E5'];
+
   const interval = setInterval(() => {
+    const zoneIndex = Math.floor(Math.random() * zones.length);
     const data = {
       temperature: (Math.random() * 10 + 20).toFixed(1),  // 20 - 30°C
       airQuality: Math.floor(Math.random() * 100),       // 0 - 100
       noise: Math.floor(Math.random() * 80 + 20),         // 20 - 100 dB
-      timestamp: new Date().toISOString().slice(0, 19).replace('T', ' ')
+      timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      zone: zones[zoneIndex],
+      sensor_name: capteurs[zoneIndex] // 🆕 Capteur associé à la zone
     };
  // ENVOI DES DONNÉES EN TEMPS RÉEL
   socket.emit('sensorData', data);
@@ -38,21 +44,21 @@ io.on('connection', (socket) => {
   // SAUVEGARDE EN BASE
   SensorData.insert(data, (err) => {
     if (err) console.error("Erreur insertion :", err);
-    else console.log("✅ Donnée enregistrée.");
+    else console.log(`✅ ${data.sensor_name} (${data.zone}) enregistrée.`);
   });
 
-  // ANALYSE ET ENVOI D’ALERTES
+  // Alertes
   if (data.airQuality > 80) {
     socket.emit('alert', {
       type: 'pollution',
-      message: `🚨 Qualité de l'air très mauvaise : ${data.airQuality}/100`
+      message: `🚨 ${data.sensor_name} - Qualité de l'air très mauvaise : ${data.airQuality}/100`
     });
   }
 
   if (data.noise > 90) {
     socket.emit('alert', {
       type: 'noise',
-      message: `🔊 Niveau sonore élevé : ${data.noise} dB`
+      message: `🔊 ${data.sensor_name} - Bruit élevé : ${data.noise} dB`
     });
   }
 
