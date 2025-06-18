@@ -78,3 +78,6 @@ app.use('/api/profile', profileRoutes);
 
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
+
+const suggestionRoutes = require('./routes/suggestionRoutes');
+app.use('/api/suggestions', suggestionRoutes);

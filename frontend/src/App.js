@@ -17,6 +17,8 @@ import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 import Footer from './components/Footer';
 import AdminPage from './pages/AdminPage';
+import CitizenSuggestions from './pages/CitizenSuggestions';
+import AdminSuggestions from './pages/AdminSuggestions';
 
 
 function App() {
@@ -52,6 +54,16 @@ function App() {
             <Route path="/admin" element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/citizen/suggestions" element={
+              <ProtectedRoute allowedRoles={['citizen']}>
+                <CitizenSuggestions />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/suggestions" element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminSuggestions />
               </ProtectedRoute>
             } />
           </Routes>

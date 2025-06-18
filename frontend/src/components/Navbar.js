@@ -25,13 +25,21 @@ function Navbar() {
 
       <div style={styles.right}>
         {role && <span style={styles.role}>Connecté : <strong>{role}</strong></span>}
-        {role && <button onClick={handleLogout} style={styles.button}>Déconnexion</button>}
+        
         {!role && <>
           <Link to="/login" style={styles.link}>Se connecter</Link>
           <Link to="/register" style={styles.link}>S'inscrire</Link>
         </>}
+        
+        {role === 'citizen' && (
+          <Link to="/citizen/suggestions" style={styles.link}>💬 Suggestions</Link>
+        )}
         {role && <Link to="/profile" style={styles.link}>Mon profil</Link>}
         {role === 'admin' && <Link to="/admin" style={styles.link}>Admin</Link>}
+        {role === 'admin' && (
+          <Link to="/admin/suggestions" style={styles.link}>📬 Suggestions</Link>
+        )}
+        {role && <button onClick={handleLogout} style={styles.button}>Déconnexion</button>}
       </div>
     </nav>
   );
