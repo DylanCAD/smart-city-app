@@ -16,9 +16,13 @@ const io = require('socket.io')(http, {
 
 const PORT = 3001;
 
+// Middleware généraux
 app.use(cors());
 app.use(bodyParser.json());
+
+// Auth
 app.use('/api', authRoutes);
+
 
 // SOCKET.IO — écouter les connexions
 io.on('connection', (socket) => {

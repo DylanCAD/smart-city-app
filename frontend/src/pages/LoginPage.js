@@ -30,10 +30,16 @@ function LoginPage() {
       else if (role === 'researcher') navigate('/researcher');
       else navigate('/');
 
-    } catch (err) {
-      alert("Erreur : " + err.response.data);
+  } catch (err) {
+    // 💬 Affichage du message de rate limit ou autre
+    if (err.response?.data?.message) {
+      alert(err.response.data.message);
+    } else {
+      alert("Erreur : Email ou mot de passe incorrect.");
+    }
     }
   };
+
 
   return (
     <div className="container mt-5">

@@ -23,8 +23,14 @@ function RegisterPage() {
       alert("Inscription réussie !");
       navigate('/login');
     } catch (err) {
-      alert("Erreur : " + err.response.data);
-    }
+      const errors = err.response?.data?.errors;
+      if (Array.isArray(errors)) {
+        alert(errors.map(e => e.msg).join('\n'));
+      } else {
+        alert("Erreur : " + err.response?.data || "Erreur inconnue");
+      }
+  }
+
   };
 
   return (
