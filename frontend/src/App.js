@@ -19,6 +19,7 @@ import Footer from './components/Footer';
 import AdminPage from './pages/AdminPage';
 import CitizenSuggestions from './pages/CitizenSuggestions';
 import AdminSuggestions from './pages/AdminSuggestions';
+import CitizenAlerts from './pages/CitizenAlerts';
 
 
 function App() {
@@ -64,6 +65,11 @@ function App() {
             <Route path="/admin/suggestions" element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminSuggestions />
+              </ProtectedRoute>
+            } />
+            <Route path="/citizen/alerts" element={
+              <ProtectedRoute allowedRoles={['citizen']}>
+                <CitizenAlerts />
               </ProtectedRoute>
             } />
           </Routes>

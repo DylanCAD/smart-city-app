@@ -6,15 +6,32 @@ import Prediction from '../components/Prediction';
 
 function ManagerPage() {
   return (
-    <div>
-      <h2>🧑‍💼 Tableau de bord du gestionnaire</h2>
-      <Prediction />
-      <hr />
-      <SensorDisplay />
-      <hr />
-      <ReportChart />
-      <hr />
-      <SensorManager />
+    <div className="container mt-5">
+      <h2 className="mb-4">🧑‍💼 Tableau de bord du gestionnaire</h2>
+
+      <div className="card mb-4">
+        <div className="card-body">
+          <Prediction />
+        </div>
+      </div>
+
+      <div className="card mb-4">
+        <div className="card-body">
+          <SensorDisplay />
+        </div>
+      </div>
+
+      <div className="card mb-4">
+        <div className="card-body">
+          <ReportChart />
+        </div>
+      </div>
+
+      <div className="card mb-4">
+        <div className="card-body">
+          <SensorManager />
+        </div>
+      </div>
     </div>
   );
 }

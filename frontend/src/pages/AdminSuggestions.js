@@ -6,28 +6,24 @@ function AdminSuggestions() {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        const res = await axios.get('http://localhost:3001/api/suggestions', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setSuggestions(res.data);
-      } catch (err) {
+    axios.get('http://localhost:3001/api/suggestions', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => setSuggestions(res.data))
+      .catch((err) => {
         console.error("Erreur récupération suggestions", err.message);
-      }
-    };
-
-    fetchSuggestions();
+      });
   }, []);
 
   return (
-    <div>
-      <h2>📬 Suggestions des citoyens</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">📬 Suggestions des citoyens</h2>
+
       {suggestions.length === 0 ? (
-        <p>Aucune suggestion reçue.</p>
+        <div className="alert alert-info">Aucune suggestion reçue.</div>
       ) : (
-        <table border="1" cellPadding="10" width="100%">
-          <thead>
+        <table className="table table-bordered table-striped">
+          <thead className="table-light">
             <tr>
               <th>Utilisateur</th>
               <th>Titre</th>

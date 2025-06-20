@@ -31,8 +31,10 @@ function ExportJSON() {
   };
 
   return (
-    <div style={{ marginTop: '10px' }}>
-      <button onClick={handleExport}>📦 Exporter données en JSON</button>
+    <div>
+      <button className="btn btn-outline-secondary" onClick={handleExport}>
+        📦 Exporter données en JSON
+      </button>
     </div>
   );
 }

@@ -36,22 +36,31 @@ function ProfilePage() {
   };
 
   return (
-    <div>
-      <h2>👤 Mon Profil</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">👤 Mon Profil</h2>
       <p><strong>Email :</strong> {userData.email}</p>
       <p><strong>Rôle :</strong> {getUserRole()}</p>
 
-      <div>
-        <label>Nom d’utilisateur : </label>
-        <input value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+      <div className="mb-3">
+        <label className="form-label">Nom d’utilisateur</label>
+        <input
+          className="form-control"
+          value={newUsername}
+          onChange={(e) => setNewUsername(e.target.value)}
+        />
       </div>
 
-      <div>
-        <label>Nouveau mot de passe : </label>
-        <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+      <div className="mb-3">
+        <label className="form-label">Nouveau mot de passe</label>
+        <input
+          type="password"
+          className="form-control"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
       </div>
 
-      <button onClick={handleSave}>💾 Enregistrer</button>
+      <button className="btn btn-success" onClick={handleSave}>💾 Enregistrer</button>
     </div>
   );
 }

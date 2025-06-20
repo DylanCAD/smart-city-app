@@ -23,15 +23,12 @@ function ExportCSV() {
         return;
       }
 
-      // Générer le contenu CSV
       const headers = "Température,Qualité de l'air,Bruit,Date\n";
       const rows = data.map(d =>
         `${d.temperature},${d.air_quality},${d.noise_level},"${d.timestamp}"`
       ).join("\n");
 
       const csvContent = headers + rows;
-
-      // Créer un blob et déclencher le téléchargement
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -46,8 +43,10 @@ function ExportCSV() {
   };
 
   return (
-    <div style={{ marginTop: '30px' }}>
-      <button onClick={handleExport}>📄 Exporter données en CSV</button>
+    <div>
+      <button className="btn btn-outline-primary" onClick={handleExport}>
+        📄 Exporter données en CSV
+      </button>
     </div>
   );
 }

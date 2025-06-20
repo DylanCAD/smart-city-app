@@ -37,10 +37,22 @@ function Prediction() {
   }, []);
 
   return (
-    <div style={{ background: '#f5f5f5', padding: '20px', marginBottom: '20px' }}>
-      <h3>🔮 Analyse prédictive (qualité de l'air)</h3>
-      {trend ? <p><strong>{trend}</strong></p> : <p>{message}</p>}
-      <small>(Basé sur les 20 dernières mesures)</small>
+    <div className="card shadow-sm mb-4">
+      <div className="card-body">
+        <h4 className="card-title mb-3">🔮 Analyse prédictive de la qualité de l'air</h4>
+
+        {trend ? (
+          <div className="alert alert-info" role="alert">
+            <strong>{trend}</strong>
+          </div>
+        ) : (
+          <p className="text-muted">{message}</p>
+        )}
+
+        <small className="text-secondary">
+          (Basé sur les 20 dernières mesures enregistrées)
+        </small>
+      </div>
     </div>
   );
 }

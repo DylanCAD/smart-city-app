@@ -72,58 +72,80 @@ function SensorManager() {
   }, [sensors]);
 
   return (
-    <div>
-      <h3>🔧 Gestion des capteurs</h3>
-      <form onSubmit={handleAddOrUpdate} style={{ marginBottom: '20px' }}>
-        <input name="name" placeholder="Nom du capteur" value={form.name} onChange={handleChange} required />{' '}
-        <input name="type" placeholder="Type" value={form.type} onChange={handleChange} required />{' '}
-        <input name="zone" placeholder="Zone" value={form.zone} onChange={handleChange} required />{' '}
-        <input name="lat" placeholder="Latitude" value={form.lat} onChange={handleChange} required />{' '}
-        <input name="lng" placeholder="Longitude" value={form.lng} onChange={handleChange} required />{' '}
-        <button type="submit">{editingIndex !== null ? "Modifier" : "Ajouter"}</button>
+    <div className="container mt-4">
+      <h3 className="mb-4">🔧 Gestion des capteurs</h3>
+
+      <form onSubmit={handleAddOrUpdate} className="row g-3">
+        <div className="col-md-4">
+          <input className="form-control" name="name" placeholder="Nom du capteur" value={form.name} onChange={handleChange} required />
+        </div>
+        <div className="col-md-4">
+          <input className="form-control" name="type" placeholder="Type" value={form.type} onChange={handleChange} required />
+        </div>
+        <div className="col-md-4">
+          <input className="form-control" name="zone" placeholder="Zone" value={form.zone} onChange={handleChange} required />
+        </div>
+        <div className="col-md-3">
+          <input className="form-control" name="lat" placeholder="Latitude" value={form.lat} onChange={handleChange} required />
+        </div>
+        <div className="col-md-3">
+          <input className="form-control" name="lng" placeholder="Longitude" value={form.lng} onChange={handleChange} required />
+        </div>
+        <div className="col-md-3">
+          <button type="submit" className="btn btn-primary w-100">
+            {editingIndex !== null ? "Modifier" : "Ajouter"}
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button type="reset" className="btn btn-secondary w-100" onClick={() => {
+            setForm({ name: '', type: '', zone: '', lat: '', lng: '' });
+            setEditingIndex(null);
+          }}>Annuler</button>
+        </div>
       </form>
 
-      {/* ✅ Carte des capteurs */}
-      <CapteurMapFromManager sensors={sensors} />
-
-      <br />
+      <div className="my-4">
+        <CapteurMapFromManager sensors={sensors} />
+      </div>
 
       {sensors.length === 0 ? (
-        <p>Aucun capteur enregistré.</p>
+        <p className="text-muted">Aucun capteur enregistré.</p>
       ) : (
-        <table border="1" cellPadding="8" style={{ width: '100%', textAlign: 'left', marginTop: '20px' }}>
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Type</th>
-              <th>Zone</th>
-              <th>Lat</th>
-              <th>Lng</th>
-              <th>Temp</th>
-              <th>Air</th>
-              <th>Bruit</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sensors.map((sensor, index) => (
-              <tr key={index}>
-                <td>{sensor.name}</td>
-                <td>{sensor.type}</td>
-                <td>{sensor.zone}</td>
-                <td>{sensor.lat}</td>
-                <td>{sensor.lng}</td>
-                <td>{sensor.temperature || '--'}</td>
-                <td>{sensor.airQuality || '--'}</td>
-                <td>{sensor.noise || '--'}</td>
-                <td>
-                  <button onClick={() => handleEdit(index)}>✏️</button>{' '}
-                  <button onClick={() => handleDelete(index)}>🗑️</button>
-                </td>
+        <div className="table-responsive mt-4">
+          <table className="table table-striped table-hover align-middle">
+            <thead className="table-dark">
+              <tr>
+                <th>Nom</th>
+                <th>Type</th>
+                <th>Zone</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Temp</th>
+                <th>Air</th>
+                <th>Bruit</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sensors.map((sensor, index) => (
+                <tr key={index}>
+                  <td>{sensor.name}</td>
+                  <td>{sensor.type}</td>
+                  <td>{sensor.zone}</td>
+                  <td>{sensor.lat}</td>
+                  <td>{sensor.lng}</td>
+                  <td>{sensor.temperature || '--'}</td>
+                  <td>{sensor.airQuality || '--'}</td>
+                  <td>{sensor.noise || '--'}</td>
+                  <td>
+                    <button className="btn btn-sm btn-warning me-2" onClick={() => handleEdit(index)}>✏️</button>
+                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(index)}>🗑️</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

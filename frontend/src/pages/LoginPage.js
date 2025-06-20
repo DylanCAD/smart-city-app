@@ -36,12 +36,16 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Connexion</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">🔐 Connexion</h2>
       <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required /><br/>
-        <input type="password" name="password" placeholder="Mot de passe" onChange={handleChange} required /><br/>
-        <button type="submit">Se connecter</button>
+        <div className="mb-3">
+          <input className="form-control" type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <input className="form-control" type="password" name="password" placeholder="Mot de passe" onChange={handleChange} required />
+        </div>
+        <button type="submit" className="btn btn-success">Se connecter</button>
       </form>
     </div>
   );

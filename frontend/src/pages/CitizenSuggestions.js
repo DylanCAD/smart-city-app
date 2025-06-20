@@ -18,37 +18,47 @@ function CitizenSuggestions() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccess('Merci pour votre suggestion !');
+      setError('');
       setForm({ title: '', message: '' });
     } catch (err) {
       setError("Erreur lors de l'envoi");
+      setSuccess('');
     }
   };
 
   return (
-    <div>
-      <h2>💬 Suggestions citoyennes</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">💬 Suggestions citoyennes</h2>
+
       <form onSubmit={handleSubmit}>
-        <input
-          name="title"
-          placeholder="Titre"
-          value={form.title}
-          onChange={handleChange}
-          required
-        /><br />
-        <textarea
-          name="message"
-          placeholder="Votre message"
-          rows="4"
-          cols="50"
-          value={form.message}
-          onChange={handleChange}
-          required
-        /><br />
-        <button type="submit">Envoyer</button>
+        <div className="mb-3">
+          <input
+            name="title"
+            className="form-control"
+            placeholder="Titre"
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <textarea
+            name="message"
+            className="form-control"
+            placeholder="Votre message"
+            rows="4"
+            value={form.message}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary">Envoyer</button>
       </form>
 
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <div className="alert alert-success mt-3">{success}</div>}
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
     </div>
   );
 }

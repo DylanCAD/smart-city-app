@@ -12,83 +12,91 @@ function Navbar() {
   };
 
   return (
-    <nav style={styles.nav}>
-      <div style={styles.left}>
-        <Link to="/" style={styles.logo}>🏙️ SmartCity</Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top px-4">
+      <Link className="navbar-brand fw-bold" to="/">🏙️ SmartCity</Link>
+
+      {/* Toggle for mobile view */}
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          {role === 'citizen' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/citizen">👤 Citoyen</Link>
+            </li>
+          )}
+          {role === 'manager' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/manager">🧑‍💼 Gestionnaire</Link>
+            </li>
+          )}
+          {role === 'researcher' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/researcher">👨‍🔬 Chercheur</Link>
+            </li>
+          )}
+          {role === 'admin' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/admin">👮 Admin</Link>
+            </li>
+          )}
+          {role === 'citizen' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/citizen/alerts">⚠️ Alertes personnalisées</Link>
+            </li>
+          )}
+          {role === 'citizen' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/citizen/suggestions">💬 Suggestions</Link>
+            </li>
+          )}
+          {role === 'admin' && (
+            <li className="nav-item">
+              <Link className="nav-link text-white fw-bold px-3 nav-link-custom" to="/admin/suggestions">📬 Suggestions</Link>
+            </li>
+          )}
+        </ul>
+
+        <div className="d-flex align-items-center gap-2">
+          {/* {role && <span className="text-white">Connecté : <strong>{role}</strong></span>} */}
+          {!role && (
+            <>
+              <Link className="btn btn-light btn-sm" to="/login">Se connecter</Link>
+              <Link className="btn btn-outline-light btn-sm" to="/register">S'inscrire</Link>
+            </>
+          )}
+          {role && <Link className="btn btn-outline-light btn-sm" to="/profile">Mon profil</Link>}
+          {role && <button className="btn btn-danger btn-sm" onClick={handleLogout}>Déconnexion</button>}
+        </div>
       </div>
 
-      <div style={styles.center}>
-        {role === 'citizen' && <Link to="/citizen" style={styles.link}>Citoyen</Link>}
-        {role === 'manager' && <Link to="/manager" style={styles.link}>Gestionnaire</Link>}
-        {role === 'researcher' && <Link to="/researcher" style={styles.link}>Chercheur</Link>}
-      </div>
+      {/* Style personnalisé */}
+      <style jsx="true">{`
+        .nav-link-custom {
+          opacity: 1 !important;
+          transition: all 0.2s ease-in-out;
+          border-bottom: 2px solid transparent;
+        }
 
-      <div style={styles.right}>
-        {role && <span style={styles.role}>Connecté : <strong>{role}</strong></span>}
-        
-        {!role && <>
-          <Link to="/login" style={styles.link}>Se connecter</Link>
-          <Link to="/register" style={styles.link}>S'inscrire</Link>
-        </>}
-        
-        {role === 'citizen' && (
-          <Link to="/citizen/suggestions" style={styles.link}>💬 Suggestions</Link>
-        )}
-        {role && <Link to="/profile" style={styles.link}>Mon profil</Link>}
-        {role === 'admin' && <Link to="/admin" style={styles.link}>Admin</Link>}
-        {role === 'admin' && (
-          <Link to="/admin/suggestions" style={styles.link}>📬 Suggestions</Link>
-        )}
-        {role && <button onClick={handleLogout} style={styles.button}>Déconnexion</button>}
-      </div>
+        .nav-link-custom:hover {
+          border-bottom: 2px solid white;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 5px;
+        }
+      `}</style>
     </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    background: '#1976d2',
-    color: 'white',
-    padding: '10px 30px',
-    position: 'sticky',
-    top: 0,
-    zIndex: 10
-  },
-  left: {},
-  center: {
-    display: 'flex',
-    gap: '20px'
-  },
-  right: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px'
-  },
-  logo: {
-    fontSize: '20px',
-    textDecoration: 'none',
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  link: {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '16px'
-  },
-  role: {
-    fontSize: '14px'
-  },
-  button: {
-    backgroundColor: '#ffffff',
-    color: '#1976d2',
-    border: 'none',
-    padding: '5px 10px',
-    borderRadius: '5px',
-    cursor: 'pointer'
-  }
-};
 
 export default Navbar;

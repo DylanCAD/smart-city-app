@@ -11,27 +11,33 @@ const sensorIcon = new L.Icon({
 
 function CapteurMapFromManager({ sensors }) {
   return (
-    <MapContainer center={[48.8566, 2.3522]} zoom={13} style={{ height: "400px", width: "100%" }}>
-      <TileLayer
-        attribution='&copy; OpenStreetMap'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {sensors.map((sensor, index) => (
-        <Marker
-          key={index}
-          position={[parseFloat(sensor.lat), parseFloat(sensor.lng)]}
-          icon={sensorIcon}
-        >
-          <Popup>
-            <strong>{sensor.name}</strong><br />
-            Température : {sensor.temperature || '--'} °C<br />
-            Air : {sensor.airQuality || '--'}/100<br />
-            Bruit : {sensor.noise || '--'} dB
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <div className="card my-4">
+      <div className="card-header">📍 Carte des capteurs</div>
+      <div className="card-body p-0">
+        <MapContainer center={[48.8566, 2.3522]} zoom={13} style={{ height: "400px", width: "100%" }}>
+          <TileLayer
+            attribution='&copy; OpenStreetMap'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {sensors.map((sensor, index) => (
+            <Marker
+              key={index}
+              position={[parseFloat(sensor.lat), parseFloat(sensor.lng)]}
+              icon={sensorIcon}
+            >
+              <Popup>
+                <strong>{sensor.name}</strong><br />
+                Température : {sensor.temperature || '--'} °C<br />
+                Air : {sensor.airQuality || '--'}/100<br />
+                Bruit : {sensor.noise || '--'} dB
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
+    </div>
   );
 }
+
 
 export default CapteurMapFromManager;

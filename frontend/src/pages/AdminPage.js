@@ -5,13 +5,13 @@ function AdminPage() {
   const [users, setUsers] = useState([]);
   const [editing, setEditing] = useState(null);
   const [editedData, setEditedData] = useState({});
-
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/users', {
       headers: { Authorization: `Bearer ${token}` }
-    }).then(res => setUsers(res.data))
+    })
+      .then(res => setUsers(res.data))
       .catch(() => alert("Accès refusé ou erreur serveur"));
   }, []);
 
@@ -37,45 +37,87 @@ function AdminPage() {
   };
 
   return (
-    <div>
-      <h2>👮‍♂️ Administration des utilisateurs</h2>
-      {users.length === 0 ? <p>Aucun utilisateur trouvé.</p> : (
-        <table border="1" cellPadding="8" style={{ width: '100%', textAlign: 'left' }}>
-          <thead>
-            <tr>
-              <th>ID</th><th>Nom</th><th>Email</th><th>Rôle</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>
-                  {editing === user.id
-                    ? <input value={editedData.username} onChange={(e) => setEditedData({ ...editedData, username: e.target.value })} />
-                    : user.username}
-                </td>
-                <td>{user.email}</td>
-                <td>
-                  {editing === user.id
-                    ? <select value={editedData.role} onChange={(e) => setEditedData({ ...editedData, role: e.target.value })}>
+    <div className="container mt-5">
+      <h2 className="mb-4">👮‍♂️ Administration des utilisateurs</h2>
+
+      {users.length === 0 ? (
+        <div className="alert alert-info">Aucun utilisateur trouvé.</div>
+      ) : (
+        <div className="table-responsive">
+          <table className="table table-bordered table-striped align-middle">
+            <thead className="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>
+                    {editing === user.id ? (
+                      <input
+                        className="form-control"
+                        value={editedData.username}
+                        onChange={(e) =>
+                          setEditedData({ ...editedData, username: e.target.value })
+                        }
+                      />
+                    ) : (
+                      user.username
+                    )}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>
+                    {editing === user.id ? (
+                      <select
+                        className="form-select"
+                        value={editedData.role}
+                        onChange={(e) =>
+                          setEditedData({ ...editedData, role: e.target.value })
+                        }
+                      >
                         <option value="citizen">citizen</option>
                         <option value="manager">manager</option>
                         <option value="researcher">researcher</option>
                         <option value="admin">admin</option>
                       </select>
-                    : user.role}
-                </td>
-                <td>
-                  {editing === user.id
-                    ? <button onClick={() => handleSave(user.id)}>✅</button>
-                    : <button onClick={() => handleEditClick(user)}>✏️</button>}
-                  <button onClick={() => handleDelete(user.id)}>🗑️</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    ) : (
+                      user.role
+                    )}
+                  </td>
+                  <td>
+                    {editing === user.id ? (
+                      <button
+                        className="btn btn-success btn-sm me-2"
+                        onClick={() => handleSave(user.id)}
+                      >
+                        ✅
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-primary btn-sm me-2"
+                        onClick={() => handleEditClick(user)}
+                      >
+                        ✏️
+                      </button>
+                    )}
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(user.id)}
+                    >
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

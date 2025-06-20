@@ -28,21 +28,29 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <h2>Inscription</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Nom d'utilisateur" onChange={handleChange} required /><br/>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required /><br/>
-        <input type="password" name="password" placeholder="Mot de passe" onChange={handleChange} required /><br/>
-        <select name="role" onChange={handleChange}>
+  <div className="container mt-5">
+    <h2 className="mb-4">📝 Inscription</h2>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <input className="form-control" name="username" placeholder="Nom d'utilisateur" onChange={handleChange} required />
+      </div>
+      <div className="mb-3">
+        <input className="form-control" type="email" name="email" placeholder="Email" onChange={handleChange} required />
+      </div>
+      <div className="mb-3">
+        <input className="form-control" type="password" name="password" placeholder="Mot de passe" onChange={handleChange} required />
+      </div>
+      <div className="mb-3">
+        <select className="form-select" name="role" onChange={handleChange}>
           <option value="citizen">Citoyen</option>
           <option value="manager">Gestionnaire</option>
           <option value="researcher">Chercheur</option>
-        </select><br/>
-        <button type="submit">S'inscrire</button>
-      </form>
-    </div>
-  );
+        </select>
+      </div>
+      <button type="submit" className="btn btn-primary">S'inscrire</button>
+    </form>
+  </div>
+);
 }
 
 export default RegisterPage;
